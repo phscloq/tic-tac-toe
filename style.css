@@ -22,7 +22,7 @@ body{
    padding-bottom: 40px;
 
 }
-.playerChoice button{
+button{
     padding: 10px;
     cursor: pointer;
 }
@@ -62,4 +62,21 @@ font-weight: bold;
 .gameboard .winner{
     background-color: red;
    
+}
+.endgame {
+    padding-top:20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.endgame p{
+    color: rgb(50, 175, 36);
+    font-weight: bold;
+    font-size: 2.3rem;
+}
+.endgame button{
+    margin-top: 20px;
+}
+.hidden{
+    display: none;
 }

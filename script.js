@@ -20,6 +20,13 @@ const gameBoard = (()=>{
 const displayController = (()=>{
     const buttons = document.querySelectorAll('button');
     const cells = document.querySelectorAll('.cells');
+    const gameEndDiv = document.getElementById('gameEnd');
+    const gameEndText = document.getElementById('gameEndText');
+    const endText = document.createElement('p');
+   
+    const button1 = document.getElementById('buttonx');
+    const button2 = document.getElementById('buttono');
+    let winner =null;
     let playerTurn = 1;
     let player1Count = 0;
     let player2Count = 0;
@@ -64,12 +71,19 @@ const beginGame = () =>{
                         player2Count += 1;
                         playerTurn=1;
                     }
-                    let winnerSign = checkWinner(gameBoard.getBoard());
+                    winnerSign = checkWinner(gameBoard.getBoard());
                     if(winnerSign == 'X' || winnerSign == 'O'){
                        console.log(`Hurra! Player ${winnerSign} wins`);
                     
                           gameWin=true;
                           displayController.gameStatus();
+                    }
+                    if(player1Count == 5 && player2Count == 4){
+                        console.log(player1Count);
+                        endText.innerHTML= "It's a TIE everyone."
+                        gameEndText.appendChild(endText);
+                    
+                        displayController.gameStatus();
                     }
                     console.log(gameBoard.getBoard());}
                     /* if(player1Count>=3 || player2Count>=3){
@@ -144,13 +158,13 @@ button.addEventListener('click', ()=>{
             
             button.classList.add('selected');
             button.classList.remove('notselected');
-            const button2 = document.getElementById('buttono');
+      
             button2.classList.remove('selected');
             button2.classList.add('notselected');
             //reset the game
-            displayController.resetGame();
+           
        
-            console.log("Game Reset");
+            
             playerTurn = 1;
             gameWin=false;
       
@@ -159,20 +173,30 @@ button.addEventListener('click', ()=>{
         else if(button.innerText == "Player O"){
             button.classList.add('selected');
             button.classList.remove('notselected');
-            const button2 = document.getElementById('buttonx');
-            button2.classList.remove('selected');
-            button2.classList.add('notselected');
+            
+            button1.classList.remove('selected');
+            button1.classList.add('notselected');
              //reset the game
-             displayController.resetGame();
-       
-             console.log("Game Reset");
+
             playerTurn = 2;
             gameWin=false;
         }
 })
 }) 
 //end of player select button function
+function gameStatus(){
 
+gameEndDiv.classList.remove('hidden');
+if(winnerSign == 'X' || winnerSign == 'O'){
+        endText.innerHTML= `The winner is Player ${winnerSign}`;
+        console.log("Its not a null");
+        gameEndText.appendChild(endText);
+    }
+
+
+
+/* endText.innerText=`The winner is Player ${winnerSign}`; */
+}
 
 function resetGame(){
  console.log("resetGame function Started")
@@ -181,8 +205,17 @@ function resetGame(){
         cell.innerHTML='';
         cell.style.backgroundColor = '#fff';
     })
+    button1.classList.remove('selected')
+    button2.classList.remove('selected')
+    button1.classList.remove('notselected')
+    button2.classList.remove('notselected')
+    gameEndDiv.classList.add('hidden');
     console.log("resetGame function Ended")
 }
-return {checkWinner, beginGame, resetGame};
+
+
+
+
+return {checkWinner, beginGame, resetGame, gameStatus};
 })();
 
