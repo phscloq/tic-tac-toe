@@ -102,10 +102,19 @@ const checkWinner = (board) =>{
     for(let i=0; i<3; i++){
         if(board[i][0]==board[i][1] && board[i][1]==board[i][2]){
       
-           
-            cells[i].style.backgroundColor = 'red';
-            cells[i+1].style.backgroundColor = 'red';
+           if(i==0){cells[i].style.backgroundColor = 'red';
+           cells[i+1].style.backgroundColor = 'red';
+           cells[i+2].style.backgroundColor = 'red';}
+           else if(i==1){
             cells[i+2].style.backgroundColor = 'red';
+           cells[i+3].style.backgroundColor = 'red';
+           cells[i+4].style.backgroundColor = 'red';
+           }
+           else{
+            cells[i+4].style.backgroundColor = 'red';
+            cells[i+5].style.backgroundColor = 'red';
+            cells[i+6].style.backgroundColor = 'red';
+           }
             return board[i][0];
             
           
@@ -211,6 +220,8 @@ function resetGame(){
     button2.classList.remove('notselected')
     gameEndDiv.classList.add('hidden');
     console.log("resetGame function Ended")
+    player1Count=0;
+    player2Count=0;
 }
 
 
