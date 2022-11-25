@@ -1,0 +1,65 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #30344e;
+    font-family: 'Roboto', sans-serif;
+}
+.main{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+    flex-direction: column;
+}
+.playerChoice{
+    display: flex;
+   justify-content: space-evenly;
+   align-items: center;
+   width: 100%;
+   padding-bottom: 40px;
+
+}
+.playerChoice button{
+    padding: 10px;
+    cursor: pointer;
+}
+.notselected{
+    background-color: #89898c;
+    border: none;
+}
+.selected{
+background-color: #50567d;
+border: 1px #7982bf solid;
+color: white;
+font-weight: bold;
+}
+
+.gameboard{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 10px;
+    width: 500px;
+    height: 500px;
+    text-align: center;
+    
+}
+.gameboard .cells{
+    background-color: #fff;
+    border: 1px solid #000;
+    font-size: 100px;
+    
+    line-height: 100px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gameboard .winner{
+    background-color: red;
+   
+}
