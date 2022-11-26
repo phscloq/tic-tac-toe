@@ -23,16 +23,17 @@ const displayController = (()=>{
     const gameEndDiv = document.getElementById('gameEnd');
     const gameEndText = document.getElementById('gameEndText');
     const endText = document.createElement('p');
-   
+    
     const button1 = document.getElementById('buttonx');
     const button2 = document.getElementById('buttono');
-    let winner =null;
+    
+
     let playerTurn = 1;
     let player1Count = 0;
     let player2Count = 0;
     let gameWin=false;
-    let newGame = true;
-
+    let gameEnd = false;
+    let vsComp = false;
 
 const beginGame = () =>{
         cells.forEach(cell=>{
@@ -58,7 +59,9 @@ const beginGame = () =>{
                         playerTurn=2;
                     }
                     else if(playerTurn==2 && cell.innerHTML==''){
+                     
                         cell.innerHTML='O';
+                        
                         if(cell.getAttribute('x')==0){
                             gameBoard.setBoard(x,y,"O");
                         }
@@ -70,26 +73,36 @@ const beginGame = () =>{
                         }
                         player2Count += 1;
                         playerTurn=1;
+                        if(vsComp==true){
+                        winnerSign = checkWinner(gameBoard.getBoard());
+                    if(winnerSign == 'X' || winnerSign == 'O'){
+                       console.log(`Hurra! Player ${winnerSign} wins`);
+                    
+                          gameWin=true;
+                          gameEnd=true;
+                          displayController.gameStatus();
                     }
+                        if(gameEnd==false){
+                        displayController.randomMove();}
+                    }}
                     winnerSign = checkWinner(gameBoard.getBoard());
                     if(winnerSign == 'X' || winnerSign == 'O'){
                        console.log(`Hurra! Player ${winnerSign} wins`);
                     
                           gameWin=true;
+                          gameEnd=true;
                           displayController.gameStatus();
                     }
                     if(player1Count == 5 && player2Count == 4){
                         console.log(player1Count);
                         endText.innerHTML= "It's a TIE everyone."
                         gameEndText.appendChild(endText);
-                    
+                        gameWin=true;
+                        gameEnd=true;
                         displayController.gameStatus();
                     }
                     console.log(gameBoard.getBoard());}
-                    /* if(player1Count>=3 || player2Count>=3){
-                        console.log("checking winner");
-                    console.log(checkWinner());}
-            */
+                    
             });})}
 /* END Cell Section */
 //check winner function
@@ -97,7 +110,6 @@ const checkWinner = (board) =>{
 
 
 
-    /* const board = gameBoard.getBoard; */
     //check rows
     for(let i=0; i<3; i++){
         if(board[i][0]==board[i][1] && board[i][1]==board[i][2]){
@@ -162,7 +174,8 @@ const checkWinner = (board) =>{
 
 buttons.forEach(button => {
 button.addEventListener('click', ()=>{
-        beginGame();
+    displayController.beginGame();
+       
         if(button.innerText == "Player X"){
             
             button.classList.add('selected');
@@ -173,7 +186,7 @@ button.addEventListener('click', ()=>{
             //reset the game
            
        
-            
+            vsComp=false;
             playerTurn = 1;
             gameWin=false;
       
@@ -186,9 +199,11 @@ button.addEventListener('click', ()=>{
             button1.classList.remove('selected');
             button1.classList.add('notselected');
              //reset the game
-
-            playerTurn = 2;
+            vsComp=true;
+            playerTurn = 1;
             gameWin=false;
+            displayController.randomMove();
+      
         }
 })
 }) 
@@ -208,6 +223,7 @@ if(winnerSign == 'X' || winnerSign == 'O'){
 }
 
 function resetGame(){
+   
  console.log("resetGame function Started")
     gameBoard.resetBoard();
     cells.forEach(cell=>{
@@ -222,11 +238,55 @@ function resetGame(){
     console.log("resetGame function Ended")
     player1Count=0;
     player2Count=0;
+    gameEnd=false;
+}
+
+function randomMove(){
+  
+    let available = [];
+    if(playerTurn==1 && gameWin!=true){
+    console.log("Random move çağrıldı");
+    let checkBoard = gameBoard.getBoard();
+ for (let i=0; i<3; i++){
+    for (let j=0; j<3; j++){
+        if(checkBoard[i][j]!='X' && checkBoard[i][j]!='O'){
+            available.push({i, j});
+        }
+    }
+ } 
+ console.log(gameWin);
+ 
+    console.log(available);
+        let move = available[Math.floor(Math.random() * (available.length))];
+        let num =0;
+        let x = [move.i];
+        let y = [move.j];
+        console.log(move);
+        console.log(y);
+        console.log("The choosen x: "+x+" and y: "+ y );
+        if(x==0){
+            num = y;
+            
+        }
+        else if (x==1){
+            num = parseInt(x) + parseInt(y) + 2;
+        }
+        else if(x==2){
+             num = parseInt(x)+parseInt(y)+4;
+        }
+
+  
+        console.log("num is " + num);
+        gameBoard.setBoard(x, y, 'X');
+        cells[num].innerText='X';
+        player1Count += 1;
+        playerTurn=2;
+
+        
+    }
 }
 
 
-
-
-return {checkWinner, beginGame, resetGame, gameStatus};
+return {checkWinner, beginGame, resetGame, gameStatus, randomMove};
 })();
 
