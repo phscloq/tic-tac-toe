@@ -94,35 +94,14 @@ font-weight: bold;
         
     }
 
-.gameboard .cells{
-    background-color: #fff;
-    border: 1px solid #000;
-    font-size: 100px;
-    
-    line-height: 100px;
-    cursor: pointer;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 .endgame {
-    padding-top:20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    
     text-align: center;
   
 }
-.endgame p{
-    color: rgb(50, 175, 36);
-    font-weight: bold;
-    font-size: 2.3rem;
-}
+
 .endgame button{
     margin-top: 20px;
     width: 300px;
 }
-
-
 }
