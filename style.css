@@ -82,7 +82,7 @@ font-weight: bold;
     display: none;
 }
 
-@media (max-width: 500px){
+@media (max-width: 900px){
     .gameboard{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -124,7 +124,5 @@ font-weight: bold;
     width: 300px;
 }
 
-.hidden{
-   
-}
+
 }
