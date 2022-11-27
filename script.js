@@ -176,7 +176,7 @@ buttons.forEach(button => {
 button.addEventListener('click', ()=>{
     displayController.beginGame();
        
-        if(button.innerText == "Player X"){
+        if(button.innerText == "Human vs Human"){
             
             button.classList.add('selected');
             button.classList.remove('notselected');
@@ -192,7 +192,7 @@ button.addEventListener('click', ()=>{
       
 
         }
-        else if(button.innerText == "Player O"){
+        else if(button.innerText == "Comp vs Human"){
             button.classList.add('selected');
             button.classList.remove('notselected');
             
